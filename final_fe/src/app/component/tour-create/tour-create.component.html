@@ -1,0 +1,276 @@
+<div class="my-3">
+  <div class="text-center">
+    <h1 class="d-3">
+      Tạo Mới Tour
+    </h1>
+  </div>
+</div>
+
+<div class="container w-75 py-3">
+  <div [hidden]="!successStatus" class="alert alert-success">
+    <strong>Thêm mới Tour thành công</strong>
+  </div>
+  <form [formGroup]="createForm" *ngIf="createForm" (ngSubmit)="onSubmit()" class="row g-3">
+
+    <div class="row mb-2">
+      <label for="creator" class="col-3 form-label">Người Tạo (*)</label>
+      <div class="col-3">
+        <select formControlName="creator" class="form-select" id="creator">
+          <option [value]="null">--Chọn Người Tạo--</option>
+          <option *ngFor="let c of customers" [ngValue]="c">{{c.name}}</option>
+        </select>
+        <div *ngIf="
+        !createForm.controls.creator?.valid
+        && (createForm.controls.creator?.dirty|| submitted ||createForm.controls.creator?.touched)"
+             class="text-small text-danger">
+          <div [hidden]="!createForm.controls.creator.errors.required">
+            Vui lòng chọn người tạo.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="tourType" class="col-3 form-label">Loại Tour (*)</label>
+      <div class="col-3">
+        <select formControlName="tourType" class="form-select" id="tourType">
+          <option [value]="null">--Chọn Loại Tour--</option>
+          <option *ngFor="let tt of tourTypes" [ngValue]="tt">{{tt.tourTypeName}}</option>
+        </select>
+        <div *ngIf="
+        !createForm.controls.tourType?.valid
+        && (createForm.controls.tourType?.dirty|| submitted ||createForm.controls.tourType?.touched)"
+             class="text-small text-danger">
+          <div [hidden]="!createForm.controls.tourType.errors.required">
+            Vui lòng chọn loại tour.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="bound" class="col-3 form-label">Phạm Vi (*)</label>
+      <div class="col-3">
+        <select formControlName="bound" class="form-select" id="bound">
+          <option [value]="null">--Chọn Phạm Vi--</option>
+          <option *ngFor="let b of bounds" [ngValue]="b">{{b.boundName}}</option>
+        </select>
+        <div *ngIf="
+        !createForm.controls.bound?.valid
+        && (createForm.controls.bound?.dirty|| submitted ||createForm.controls.bound?.touched)"
+             class="text-small text-danger">
+          <div [hidden]="!createForm.controls.bound.errors.required">
+            Vui lòng chọn phạm vi.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="tourName" class="col-3 form-label">Tên Tour(*)</label>
+      <div class="col-6">
+        <input formControlName="tourName" type="text" class="form-control" id="tourName">
+        <div *ngIf="
+            !createForm.controls.tourName?.valid
+            && (createForm.controls.tourName?.dirty|| submitted ||createForm.controls.tourName?.touched)"
+             class="text-small text-danger">
+          <div [hidden]="!createForm.controls.tourName.errors.required">
+            {{MESSAGE_CODE.required}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="destination" class="col-3 form-label">Địa điểm du lịch (*)</label>
+      <div class="col-6">
+        <input formControlName="destination" type="text" class="form-control" id="destination">
+        <div *ngIf="
+            !createForm.controls.destination?.valid
+            && (createForm.controls.destination?.dirty|| submitted ||createForm.controls.destination?.touched)"
+             class="text-small text-danger">
+          <div [hidden]="!createForm.controls.destination.errors.required">
+            {{MESSAGE_CODE.required}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="startDate" class="col-3 form-label">Ngày Khởi Hành (*)</label>
+      <div class="col-3">
+        <input formControlName="startDate" type="date" class="form-control" id="startDate">
+        <div *ngIf="
+            !createForm.controls.startDate?.valid
+            && (createForm.controls.startDate?.dirty|| submitted ||createForm.controls.startDate?.touched)"
+             class="text-small text-danger">
+          <div [hidden]="!createForm.controls.startDate.errors.required">
+            {{MESSAGE_CODE.required}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="finishDate" class="col-3 form-label">Ngày Về (*)</label>
+      <div class="col-3">
+        <input formControlName="finishDate" type="date" class="form-control" id="finishDate">
+        <div *ngIf="
+            !createForm.controls.finishDate?.valid
+            && (createForm.controls.finishDate?.dirty|| submitted ||createForm.controls.finishDate?.touched)"
+             class="text-small text-danger">
+          <div [hidden]="!createForm.controls.finishDate.errors.required">
+            {{MESSAGE_CODE.required}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="closedRegisterDate" class="col-3 form-label">Ngày Đóng Đăng Kí (*)</label>
+      <div class="col-3">
+        <input formControlName="closedRegisterDate" type="date" class="form-control" id="closedRegisterDate">
+        <div *ngIf="
+            !createForm.controls.closedRegisterDate?.valid
+            && (createForm.controls.closedRegisterDate?.dirty|| submitted ||createForm.controls.closedRegisterDate?.touched)"
+             class="text-small text-danger">
+          <div [hidden]="!createForm.controls.closedRegisterDate.errors.required">
+            {{MESSAGE_CODE.required}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="peopleAllowed" class="col-3 form-label">Số Người Tối Đa (*)</label>
+      <div class="col-3">
+        <input formControlName="peopleAllowed" type="number" class="form-control" id="peopleAllowed">
+        <div *ngIf="
+            !createForm.controls.peopleAllowed?.valid
+            && (createForm.controls.peopleAllowed?.dirty|| submitted ||createForm.controls.peopleAllowed?.touched)"
+             class="text-small text-danger">
+          <div [hidden]="!createForm.controls.peopleAllowed.errors.required">
+            {{MESSAGE_CODE.required}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="plans" class="col-3 form-label">Lịch Trình (*)</label>
+      <div class="col-6">
+        <input formControlName="plans" type="text" class="form-control" id="plans">
+        <div *ngIf="
+            !createForm.controls.plans?.valid
+            && (createForm.controls.plans?.dirty|| submitted ||createForm.controls.plans?.touched)"
+             class="text-small text-danger">
+          <div [hidden]="!createForm.controls.plans.errors.required">
+            {{MESSAGE_CODE.required}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <label for="participant_required" class="col-3 form-label">Yêu Cầu Đối Tượng Tham Gia (*)</label>
+      <div class="col-6">
+        <input formControlName="participant_required" type="text" class="form-control" id="participant_required">
+        <div *ngIf="
+            !createForm.controls.participant_required?.valid
+            && (createForm.controls.participant_required?.dirty|| submitted ||createForm.controls.participant_required?.touched)"
+             class="text-small text-danger">
+          <div [hidden]="!createForm.controls.participant_required.errors.required">
+            {{MESSAGE_CODE.required}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label for="cost" class="col-3 form-label">Chi Phí (*)</label>
+      <div class="col-3">
+        <input formControlName="cost" type="text" class="form-control" id="cost">
+        <div *ngIf="
+            !createForm.controls.cost?.valid
+            && (createForm.controls.cost?.dirty|| submitted ||createForm.controls.cost?.touched)"
+             class="text-small text-danger">
+          <div [hidden]="!createForm.controls.cost.errors.required">
+            {{MESSAGE_CODE.required}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--    <div class="row mb-2">-->
+    <!--      <label for="inputEmail" class="col-3 form-label">Email(*)</label>-->
+    <!--      <div class="col-6">-->
+    <!--        <input formControlName="email" type="email" class="form-control" id="inputEmail">-->
+    <!--        <div *ngIf="-->
+    <!--        !createForm.controls.email?.valid-->
+    <!--        && (createForm.controls.email?.dirty|| submitted ||createForm.controls.email?.touched)"-->
+    <!--             class="text-small text-danger">-->
+    <!--          <div [hidden]="!createForm.controls.email.errors.required">-->
+    <!--            Email must be required-->
+    <!--          </div>-->
+    <!--          <div [hidden]="!createForm.controls.email.errors.email">-->
+    <!--            Email format is invalid-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+
+    <!--    <div class="row mb-2">-->
+    <!--      <label for="inputStartTime" class="col-3 form-label">Start Time(*)</label>-->
+    <!--      <div class="col-6">-->
+    <!--        <input formControlName="startTime" type="time" class="form-control" id="inputStartTime">-->
+    <!--        <div *ngIf="-->
+    <!--        !createForm.controls.startTime?.valid-->
+    <!--        && (createForm.controls.startTime?.dirty|| submitted ||createForm.controls.startTime?.touched)"-->
+    <!--             class="text-small text-danger">-->
+    <!--          <div [hidden]="!createForm.controls.startTime.errors.required">-->
+    <!--            Start Time must be required-->
+    <!--          </div>-->
+    <!--          <div [hidden]="!createForm.controls.startTime.errors.pattern">-->
+    <!--            Start Time must be formatted follow hh:mm-->
+    <!--          </div>-->
+    <!--          <div [hidden]="!createForm.controls.startTime.hasError('timeInvalid')">-->
+    <!--            Start Time must be after 5:00 and before 23:00-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+
+    <!--    <div class="row mb-2">-->
+    <!--      <label for="inputArrivalTime" class="col-3 form-label">Arrival Time(*)</label>-->
+    <!--      <div class="col-6">-->
+    <!--        <input formControlName="arrivalTime" type="time" class="form-control" id="inputArrivalTime">-->
+    <!--        <div *ngIf="-->
+    <!--        !createForm.controls.arrivalTime?.valid-->
+    <!--        && (createForm.controls.arrivalTime?.dirty-->
+    <!--        ||createForm.controls.arrivalTime?.touched-->
+    <!--        || submitted)"-->
+    <!--             class="text-small text-danger">-->
+    <!--          <div [hidden]="!createForm.controls.arrivalTime.errors.required">-->
+    <!--            Arrival Time must be required-->
+    <!--          </div>-->
+    <!--          <div [hidden]="!createForm.controls.arrivalTime.errors.pattern">-->
+    <!--            Arrival Time must be formatted follow hh:mm-->
+    <!--          </div>-->
+    <!--          <div [hidden]="!createForm.controls.arrivalTime.hasError('timeInvalid')">-->
+    <!--            Arrival Time must be after 5:00 and before 23:00-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+
+
+    <div class="col-3"></div>
+    <div class="col-3">
+      <a class="btn btn-secondary" routerLink="/">Return List</a>
+    </div>
+    <div class="col-3">
+      <button [disabled]="!createForm.valid" type="submit" class="btn btn-primary">Create</button>
+    </div>
+    <div class="col-3"></div>
+  </form>
+
+</div>

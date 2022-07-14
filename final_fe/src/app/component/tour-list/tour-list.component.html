@@ -1,0 +1,78 @@
+<div class="my-3">
+  <div class="d-flex">
+    <a class="btn btn-success" routerLink="/create">Thêm mới Tour</a>
+    <a class="btn btn-info mx-3" routerLink="/statistic">Thống kê số lần đăng kí</a>
+  </div>
+</div>
+
+<div class="container-fluid p-0">
+  <table class="table table-bordered table-light table-striped table-hover">
+    <thead class="table-dark">
+    <tr class="text-center">
+      <th scope="col">Mã Tour</th>
+      <th scope="col">Người Tạo</th>
+      <th scope="col">Phạm vi</th>
+      <th scope="col">Loại Tour</th>
+      <th scope="col">Tên Tour</th>
+      <th scope="col">Địa điểm</th>
+      <th scope="col">Ngày xuất phát</th>
+      <th scope="col">Số người</th>
+      <th scope="col">Lịch trình</th>
+      <th scope="col">Giá</th>
+      <th scope="col">Chức năng</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="!tours || tours.length == 0">
+      <td colspan="10" class="text-center">Không tìm thấy tour nào phù hợp</td>
+    </tr>
+    <tr *ngFor="let t of tours">
+      <td>{{t.tourId}}</td>
+      <td>{{t.creator.name}}</td>
+      <td>{{t.bound.boundName}}</td>
+      <td>{{t.tourType.tourTypeName}}</td>
+      <td>{{t.tourName}}</td>
+      <td>{{t.destination}}</td>
+      <td>{{t.startDate | date: "dd/MM/yyyy"}}</td>
+      <td>{{t.peopleAllowed}}</td>
+      <td>{{t.plans}}</td>
+      <td class="text-end">{{t.cost | currency: 'VND': '' }} VND</td>
+      <td class="text-center">
+        <button
+          class="btn btn-danger"
+          data-bs-toggle="modal" data-bs-target="#exampleModal"
+          type="button"
+          (click)="setIdToDelete(t.tourId)"
+        >
+          <i class='bx bx-trash bx-sx'></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">XÁC NHẬN XÓA</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Bạn có muốn xóa tour {{tourIdToDelete}}
+        </p>
+        <strong class="text-danger">
+          DỮ LIỆU SẼ KHÔNG THỂ PHỤC HỒI
+        </strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        <button (click)="delete()" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Xác Nhận Xóa
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="my-3">
+  <div class="d-flex justify-content-between">
+    <a class="btn btn-secondary" routerLink="/">Quay lại</a>
+  </div>
+</div>
+
+<div class="container p-0">
+  <table class="table table-bordered table-light table-striped table-hover">
+    <thead class="table-dark">
+    <tr class="text-center">
+      <th scope="col">Mã Thành viên</th>
+      <th scope="col">Tổng số lần đăng kí</th>
+    </tr>
+    </thead>
+    <tbody class="text-center">
+    <tr *ngIf="!statistics || statistics.length == 0">
+      <td colspan="10" class="text-center">Không tìm thấy dữ liệu nào phù hợp</td>
+    </tr>
+    <tr *ngFor="let s of statistics">
+      <td>{{s.customerId}}</td>
+      <td>{{s.total}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
